@@ -18,13 +18,17 @@ import { userSession } from "./Authenticate";
 
 export const Video = () => {
   const [nftEventNumber, setNftEventNumber] = useState("");
+  // state variable used to determine if the contract exists in your wallet,
+  // if it does it executes the proper return of the Video component //
   const [nftContract, setNftContract] = useState(false);
 
+  // states used to store whether youre signed in (bool), your wallets contents, and wallet address //
   const [state, setState] = useState(null);
   const [address, setAddress] = useState("");
   const [assets, setAssets] = useState([]);
   const [bool, setBool] = useState(false);
 
+  // signs out of your stacks wallet //
   const handleSignOut = (e) => {
     e.preventDefault();
     setState(null);
@@ -56,6 +60,8 @@ export const Video = () => {
 
     const cleanTxs = txs.nft_events;
 
+    // Checks if the nft events object is empty, if it is it doesnt run through and check for the contract //
+    //  If it's not empty, it checks for the specific NFT contract and if its owned //
     if (Object.keys(cleanTxs).length !== 0) {
       if (
         cleanTxs.filter(
